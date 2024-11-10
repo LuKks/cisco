@@ -13,11 +13,24 @@ test('basic', async function (t) {
 
   await cisco.receive('Create a lib/hi.js file that logs "Hello World!".')
 
-  t.is(await node(path.join(cwd, 'lib/hi.js')), 'Hello World!\n')
+  t.is(node(path.join(cwd, 'lib/hi.js')), 'Hello World!\n')
 
   await cisco.receive('Change the log message to "Hi World!".')
 
-  t.is(await node(path.join(cwd, 'lib/hi.js')), 'Hi World!\n')
+  t.is(node(path.join(cwd, 'lib/hi.js')), 'Hi World!\n')
+})
+
+test('basic', async function (t) {
+  const cwd = await tmp(t)
+  const cisco = new Cisco({ cwd, yes: true })
+
+  await cisco.receive('Create a lib/hi.js file with two functions, one that logs "Hello World!" and another one that logs "Hi World!", and execute them.')
+
+  t.is(node(path.join(cwd, 'lib/hi.js')), 'Hello World!\nHi World!\n')
+
+  await cisco.receive('Change each log message to remove "!" and add "..." at the end.')
+
+  t.is(node(path.join(cwd, 'lib/hi.js')), 'Hello World...\nHi World...\n')
 })
 
 function node (filename, args) {
@@ -27,5 +40,13 @@ function node (filename, args) {
 
   args.unshift(filename)
 
-  return cp.execFileSync(process.execPath, args.filter(v => v), { encoding: 'utf8' })
+  try {
+    return cp.execFileSync(process.execPath, args.filter(v => v), { encoding: 'utf8' })
+  } catch (err) {
+    if (err.stderr.includes('MODULE_NOT_FOUND')) {
+      return null
+    }
+
+    throw err
+  }
 }
