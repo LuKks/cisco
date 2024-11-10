@@ -29,6 +29,8 @@
     "ask-readline": "^1.1.0",
     "commander": "^12.1.0",
     "dotenv": "^16.4.5",
+    "he": "^1.2.0",
+    "highlight.js": "^11.10.0",
     "like-fetch": "^2.3.0",
     "like-safe": "^1.0.0",
     "openai": "^4.71.1",
