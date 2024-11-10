@@ -1,0 +1,38 @@
+{
+  "name": "cisco",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "cisco": "bin.js"
+  },
+  "files": [],
+  "scripts": {
+    "test": "standard && brittle test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukks/cisco.git"
+  },
+  "author": "Lucas Barrena (LuKks)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lukks/cisco/issues"
+  },
+  "homepage": "https://github.com/lukks/cisco#readme",
+  "devDependencies": {
+    "brittle": "^3.3.2",
+    "like-tmp": "^1.0.0",
+    "standard": "^17.1.0"
+  },
+  "dependencies": {
+    "ask-readline": "^1.1.0",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "like-fetch": "^2.3.0",
+    "like-safe": "^1.0.0",
+    "openai": "^4.71.1",
+    "safety-catch": "^1.0.2",
+    "tiny-crayon": "^1.0.5"
+  }
+}
