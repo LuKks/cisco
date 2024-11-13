@@ -391,6 +391,21 @@ test('basic', async function (t) {
   t.is(node(path.join(cwd, 'lib/hi.js')), '')
 })
 
+test('basic', async function (t) {
+  const cwd = await tmp(t)
+  const cisco = new Cisco({ cwd, yes: true })
+
+  await cisco.receive('Create a lib/hi.js file that logs "Hello World!" or "Hi World!" based on Math.random() > 0.50')
+
+  const output = node(path.join(cwd, 'lib/hi.js'))
+
+  if (output.includes('Hello')) {
+    t.is(output, 'Hello World!\n')
+  } else {
+    t.is(output, 'Hi World!\n')
+  }
+})
+
 function node (filename, args) {
   if (!args) {
     args = []
