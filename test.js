@@ -112,6 +112,255 @@ After updating the log messages, your application will provide clearer feedback 
   ])
 })
 
+// TODO
+test.skip('unexpected end of input', async function (t) {
+  const stream = await stringToTokens(`Here are the *SEARCH/REPLACE* blocks to make the \`lib/hi.js\` file empty:
+
+lib/hi.js
+\`\`\`javascript
+<<<<<< SEARCH
+function helloWorld() {
+    console.log("Hello World...");
+}
+
+function hiWorld() {
+    console.log("Hi World...");
+}
+
+// Execute the functions
+helloWorld();
+hiWorld();
+=======
+\`\`\`\n\n`)
+
+  const parser = new TokenStream()
+  const loop = parser.loop()
+
+  loop.catch(safetyCatch)
+
+  for await (const data of stream) {
+    parser.push(data.delta)
+  }
+
+  parser.push(null)
+
+  await loop
+
+  t.alike(parser.changes, [])
+})
+
+test('wrong output edge case - filename has a starting space', async function (t) {
+  const stream = await stringToTokens(`Here’s how to remove all the content from \`lib/hi.js\` to make it empty:
+
+ lib/hi.js
+\`\`\`javascript
+<<<<<<< SEARCH
+function logHelloWorld() {
+    console.log("Hello World...");
+}
+
+function logHiWorld() {
+    console.log("Hi World...");
+}
+
+logHelloWorld();
+logHiWorld();
+=======
+>>>>>>> REPLACE
+\`\`\`\n`)
+
+  const parser = new TokenStream()
+  const loop = parser.loop()
+
+  loop.catch(safetyCatch)
+
+  for await (const data of stream) {
+    parser.push(data.delta)
+  }
+
+  parser.push(null)
+
+  await loop
+
+  t.alike(parser.changes, [
+    {
+      filename: 'lib/hi.js',
+      language: 'javascript',
+      search: `function logHelloWorld() {
+    console.log("Hello World...");
+}
+
+function logHiWorld() {
+    console.log("Hi World...");
+}
+
+logHelloWorld();
+logHiWorld();`,
+      replace: ''
+    }
+  ])
+})
+
+test('wrong output edge case - replace has a replace starting block', async function (t) {
+  const stream = await stringToTokens(`Here is the update to make \`lib/hi.js\` an empty file.
+
+lib/hi.js
+\`\`\`javascript
+<<<<<<< SEARCH
+function sayHello() {
+    console.log("Hello World...");
+}
+
+function sayHi() {
+    console.log("Hi World...");
+}
+
+sayHello();
+sayHi();
+=======
+<<<<<<< REPLACE
+>>>>>>> REPLACE
+\`\`\`\n`)
+
+  const parser = new TokenStream()
+  const loop = parser.loop()
+
+  loop.catch(safetyCatch)
+
+  for await (const data of stream) {
+    parser.push(data.delta)
+  }
+
+  parser.push(null)
+
+  await loop
+
+  t.alike(parser.changes, [
+    {
+      filename: 'lib/hi.js',
+      language: 'javascript',
+      search: `function sayHello() {
+    console.log("Hello World...");
+}
+
+function sayHi() {
+    console.log("Hi World...");
+}
+
+sayHello();
+sayHi();`,
+      replace: ''
+    }
+  ])
+})
+
+test('wrong output edge case - replace has a search starting block', async function (t) {
+  const stream = await stringToTokens(`Here is the update to make \`lib/hi.js\` an empty file.
+
+lib/hi.js
+\`\`\`javascript
+<<<<<<< SEARCH
+function sayHello() {
+    console.log("Hello World...");
+}
+
+function sayHi() {
+    console.log("Hi World...");
+}
+
+sayHello();
+sayHi();
+=======
+<<<<<<< SEARCH
+>>>>>>> REPLACE
+\`\`\`\n`)
+
+  const parser = new TokenStream()
+  const loop = parser.loop()
+
+  loop.catch(safetyCatch)
+
+  for await (const data of stream) {
+    parser.push(data.delta)
+  }
+
+  parser.push(null)
+
+  await loop
+
+  t.alike(parser.changes, [
+    {
+      filename: 'lib/hi.js',
+      language: 'javascript',
+      search: `function sayHello() {
+    console.log("Hello World...");
+}
+
+function sayHi() {
+    console.log("Hi World...");
+}
+
+sayHello();
+sayHi();`,
+      replace: ''
+    }
+  ])
+})
+
+test('wrong output edge case - filename with backticks', async function (t) {
+  const stream = await stringToTokens(`Here’s how to create \`lib/hi.js\` with two functions that log "Hello World!" and "Hi World!", and then execute them:
+
+\`lib/hi.js\`
+\`\`\`javascript
+<<<<<<< SEARCH
+=======
+function helloWorld() {
+    console.log("Hello World!");
+}
+
+function hiWorld() {
+    console.log("Hi World!");
+}
+
+helloWorld();
+hiWorld();
+>>>>>>> REPLACE
+\`\`\`
+
+Let me know if you would like me to create the file!\n`)
+
+  const parser = new TokenStream()
+  const loop = parser.loop()
+
+  loop.catch(safetyCatch)
+
+  for await (const data of stream) {
+    parser.push(data.delta)
+  }
+
+  parser.push(null)
+
+  await loop
+
+  t.alike(parser.changes, [
+    {
+      filename: 'lib/hi.js',
+      language: 'javascript',
+      search: '',
+      replace: `function helloWorld() {
+    console.log("Hello World!");
+}
+
+function hiWorld() {
+    console.log("Hi World!");
+}
+
+helloWorld();
+hiWorld();`
+    }
+  ])
+})
+
 test('basic', async function (t) {
   const cwd = await tmp(t)
   const cisco = new Cisco({ cwd, yes: true })
