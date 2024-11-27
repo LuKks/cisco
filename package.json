@@ -33,6 +33,7 @@
     "he": "^1.2.0",
     "highlight.js": "^11.10.0",
     "like-fetch": "^2.3.0",
+    "like-github": "^1.0.0",
     "like-safe": "^1.0.0",
     "openai": "^4.71.1",
     "safety-catch": "^1.0.2",

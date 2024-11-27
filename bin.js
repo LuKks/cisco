@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
+const os = require('os')
 const path = require('path')
 const dotenv = require('dotenv')
 const { program, createOption } = require('commander')
 const safetyCatch = require('safety-catch')
 const pkg = require('./package.json')
 
+// TODO: Double check this
 dotenv.config()
+dotenv.config({ path: path.join(os.homedir(), '.env') })
 
 const main = program
   .version(pkg.version)
