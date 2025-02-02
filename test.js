@@ -370,6 +370,20 @@ test('highlight', function (t) {
   const b = highlight('emitter.on(\'error\', (err) => {})', { language: 'javascript' })
 
   t.is(b, 'emitter.\x1B[92mon\x1B[39m(\x1B[93m\'error\'\x1B[39m, \x1B[37m(\x1B[33merr\x1B[39m) =>\x1B[39m {})')
+
+  const c = highlight(`
+print('Hello World!')
+
+function print (text) {
+  console.log(text)
+}
+`.trim(), { language: 'javascript' })
+
+  t.is(c, '\x1B[92mprint\x1B[39m(\x1B[93m\'Hello World!\'\x1B[39m)\n' +
+    '\n' +
+    '\x1B[36mfunction\x1B[39m \x1B[92mprint\x1B[39m (\x1B[33mtext\x1B[39m) {\n' +
+    '  \x1B[36mconsole\x1B[39m.\x1B[96mlog\x1B[39m(text)\n' +
+    '}')
 })
 
 test('basic', async function (t) {
