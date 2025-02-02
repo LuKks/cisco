@@ -6,6 +6,7 @@ const dotenv = require('dotenv')
 const safetyCatch = require('safety-catch')
 const Cisco = require('./index.js')
 const TokenStream = require('./lib/token-stream.js')
+const highlight = require('./lib/highlight.js')
 
 dotenv.config()
 
@@ -359,6 +360,16 @@ helloWorld();
 hiWorld();`
     }
   ])
+})
+
+test('highlight', function (t) {
+  const a = highlight('const stringify = (a, b, c) => null', { language: 'javascript' })
+
+  t.is(a, '\x1B[36mconst\x1B[39m \x1B[96mstringify\x1B[39m = (\x1B[33ma\x1B[39m,\x1B[33m b\x1B[39m,\x1B[33m c\x1B[39m) => \x1B[35mnull\x1B[39m')
+
+  const b = highlight('emitter.on(\'error\', (err) => {})', { language: 'javascript' })
+
+  t.is(b, 'emitter.\x1B[92mon\x1B[39m(\x1B[93m\'error\'\x1B[39m, \x1B[37m(\x1B[33merr\x1B[39m) =>\x1B[39m {})')
 })
 
 test('basic', async function (t) {
