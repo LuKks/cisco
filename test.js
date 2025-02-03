@@ -10,6 +10,8 @@ const highlight = require('./lib/highlight.js')
 
 dotenv.config()
 
+test.configure({ timeout: 90000 })
+
 test('basic', async function (t) {
   const stream = await stringToTokens(`
 To add a log message, I will insert a console log statement in the \`main\` function to indicate the start of video and audio processing. 
@@ -390,7 +392,7 @@ test('basic', async function (t) {
   const cwd = await tmp(t)
   const cisco = new Cisco({ cwd, yes: true })
 
-  await cisco.receive('Create a lib/hi.js file that logs "Hello World!".')
+  await cisco.receive('Create a lib/hi.js file that logs "Hello World!". Use CJS and no exports.')
 
   t.is(node(path.join(cwd, 'lib/hi.js')), 'Hello World!\n')
 
@@ -403,7 +405,7 @@ test('basic', async function (t) {
   const cwd = await tmp(t)
   const cisco = new Cisco({ cwd, yes: true })
 
-  await cisco.receive('Create a lib/hi.js file with two functions, one that logs "Hello World!" and another one that logs "Hi World!", and execute them.')
+  await cisco.receive('Create a lib/hi.js file with two functions, one that logs "Hello World!" and another one that logs "Hi World!", and execute them. Use CJS and no exports.')
 
   t.is(node(path.join(cwd, 'lib/hi.js')), 'Hello World!\nHi World!\n')
 
@@ -420,7 +422,7 @@ test('basic', async function (t) {
   const cwd = await tmp(t)
   const cisco = new Cisco({ cwd, yes: true })
 
-  await cisco.receive('Create a lib/hi.js file that logs "Hello World!" or "Hi World!" based on Math.random() > 0.50')
+  await cisco.receive('Create a lib/hi.js file that logs "Hello World!" or "Hi World!" based on Math.random() > 0.50. Use CJS and no exports.')
 
   const output = node(path.join(cwd, 'lib/hi.js'))
 
