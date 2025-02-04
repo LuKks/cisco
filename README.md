@@ -40,8 +40,8 @@ OPENAI_API_KEY = "sk-proj-abc123"
 Your own API:
 
 ```sh
-CISCO_BASE_URL = "https://openrouter.ai/api/v1"
-CISCO_API_KEY = "sk-or-v1-abc123"
+CISCO_URL = "https://openrouter.ai/api/v1"
+CISCO_KEY = "sk-or-v1-abc123"
 CISCO_MODEL = "deepseek/deepseek-chat"
 ```
 
@@ -86,8 +86,8 @@ Options:
 
 ```js
 {
-  baseURL: process.env.CISCO_BASE_URL,
-  apiKey: process.env.CISCO_API_KEY || process.env.OPENAI_API_KEY,
+  url: process.env.CISCO_URL,
+  key: process.env.CISCO_KEY || process.env.OPENAI_API_KEY,
   cwd: '.',
   interactive: false,
   quiet: true,
