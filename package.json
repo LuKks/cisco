@@ -6,7 +6,9 @@
   "bin": {
     "cisco": "bin.js"
   },
-  "files": [],
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "standard && brittle test.js"
   },
