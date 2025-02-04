@@ -10,6 +10,8 @@ Warning: Experimental and early stages of development.
 
 I recommend using it in new folders with no sensitive files for now.
 
+https://github.com/user-attachments/assets/2a8023d8-108d-45ff-a404-ceb4deecbe4a
+
 ## Usage (CLI)
 
 ```sh
@@ -42,8 +44,6 @@ CISCO_BASE_URL = "https://openrouter.ai/api/v1"
 CISCO_API_KEY = "sk-or-v1-abc123"
 CISCO_MODEL = "deepseek/deepseek-chat"
 ```
-
-https://github.com/user-attachments/assets/2a8023d8-108d-45ff-a404-ceb4deecbe4a
 
 ## Usage (Module)
 
