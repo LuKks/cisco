@@ -10,7 +10,7 @@ Warning: Experimental and early stages of development.
 
 I recommend using it in new folders with no sensitive files for now.
 
-https://github.com/user-attachments/assets/2a8023d8-108d-45ff-a404-ceb4deecbe4a
+https://github.com/user-attachments/assets/dda019ca-86c9-4fd5-820c-30e3aed86d2b
 
 ## Usage (CLI)
 
