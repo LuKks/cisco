@@ -390,7 +390,7 @@ function print (text) {
 
 test('basic', async function (t) {
   const cwd = await tmp(t)
-  const cisco = new Cisco({ cwd, yes: true })
+  const cisco = new Cisco({ cwd })
 
   await cisco.receive('Create a lib/hi.js file that logs "Hello World!". Use CJS and no exports.')
 
@@ -403,7 +403,7 @@ test('basic', async function (t) {
 
 test('basic', async function (t) {
   const cwd = await tmp(t)
-  const cisco = new Cisco({ cwd, yes: true })
+  const cisco = new Cisco({ cwd })
 
   await cisco.receive('Create a lib/hi.js file with two functions, one that logs "Hello World!" and another one that logs "Hi World!", and execute them. Use CJS and no exports.')
 
@@ -420,7 +420,7 @@ test('basic', async function (t) {
 
 test('basic', async function (t) {
   const cwd = await tmp(t)
-  const cisco = new Cisco({ cwd, yes: true })
+  const cisco = new Cisco({ cwd })
 
   await cisco.receive('Create a lib/hi.js file that logs "Hello World!" or "Hi World!" based on Math.random() > 0.50. Use CJS and no exports.')
 
