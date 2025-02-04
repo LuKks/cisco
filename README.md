@@ -25,6 +25,10 @@ Options:
   -h, --help        display help for command
 ```
 
+Use the `/add [filename]` or `/drop [filename]` commands to handle files in the context.
+
+E.g. You have an existing project, then you might need to add files to the context.
+
 ## Settings
 
 Use the file `~/.env` for global configuration.
