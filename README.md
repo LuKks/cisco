@@ -10,9 +10,7 @@ Warning: Experimental and early stages of development.
 
 I recommend using it in new folders with no sensitive files for now.
 
-## Usage
-
-CLI
+## Usage (CLI)
 
 ```sh
 cisco [options]
@@ -24,8 +22,6 @@ Options:
   --verbose         print logs (default: false)
   -h, --help        display help for command
 ```
-
-https://github.com/user-attachments/assets/2a8023d8-108d-45ff-a404-ceb4deecbe4a
 
 ## Settings
 
@@ -47,7 +43,9 @@ CISCO_API_KEY = "sk-or-v1-abc123"
 CISCO_MODEL = "deepseek/deepseek-chat"
 ```
 
-Module
+https://github.com/user-attachments/assets/2a8023d8-108d-45ff-a404-ceb4deecbe4a
+
+## Usage (Module)
 
 ```js
 const { execFileSync } = require('child_process')
