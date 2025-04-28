@@ -9,6 +9,7 @@ const TokenStream = require('./lib/token-stream.js')
 const highlight = require('./lib/highlight.js')
 
 dotenv.config()
+dotenv.config({ path: require('os').homedir() + '/.env' })
 
 test.configure({ timeout: 90000 })
 
