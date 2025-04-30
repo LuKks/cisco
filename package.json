@@ -1,6 +1,6 @@
 {
   "name": "the-cisco",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "AI pair programming in your terminal",
   "main": "index.js",
   "bin": {
