@@ -37,7 +37,7 @@
     "like-fetch": "^2.3.0",
     "like-github": "^1.0.0",
     "like-safe": "^1.0.0",
-    "modify-file": "^0.0.2",
+    "modify-file": "^1.0.0",
     "openai": "^4.71.1",
     "safety-catch": "^1.0.2",
     "tiny-crayon": "^1.0.5"
