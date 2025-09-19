@@ -13,6 +13,8 @@ dotenv.config({ path: require('os').homedir() + '/.env' })
 
 test.configure({ timeout: 90000 })
 
+const OPENAI = false
+
 test('basic', async function (t) {
   const stream = await stringToTokens(`
 To add a log message, I will insert a console log statement in the \`main\` function to indicate the start of video and audio processing. 
@@ -391,7 +393,7 @@ function print (text) {
 
 test('basic', async function (t) {
   const cwd = await tmp(t)
-  const cisco = new Cisco({ cwd })
+  const cisco = new Cisco({ cwd, openai: OPENAI })
 
   await cisco.receive('Create a lib/hi.js file that logs "Hello World!". Use CJS and no exports.')
 
@@ -404,7 +406,7 @@ test('basic', async function (t) {
 
 test('basic', async function (t) {
   const cwd = await tmp(t)
-  const cisco = new Cisco({ cwd })
+  const cisco = new Cisco({ cwd, openai: OPENAI })
 
   await cisco.receive('Create a lib/hi.js file with two functions, one that logs "Hello World!" and another one that logs "Hi World!", and execute them. Use CJS and no exports.')
 
@@ -421,7 +423,7 @@ test('basic', async function (t) {
 
 test('basic', async function (t) {
   const cwd = await tmp(t)
-  const cisco = new Cisco({ cwd })
+  const cisco = new Cisco({ cwd, openai: OPENAI })
 
   await cisco.receive('Create a lib/hi.js file that logs "Hello World!" or "Hi World!" based on Math.random() > 0.50. Use CJS and no exports.')
 

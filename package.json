@@ -32,6 +32,7 @@
     "commander": "^12.1.0",
     "count-break-lines": "^1.0.2",
     "dotenv": "^16.4.5",
+    "eventsource-parser": "^3.0.5",
     "highlight.js": "^11.10.0",
     "html-to-text": "^9.0.5",
     "like-fetch": "^2.3.0",
